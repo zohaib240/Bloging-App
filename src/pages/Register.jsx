@@ -38,20 +38,6 @@ import { Link, useNavigate } from 'react-router-dom'
 
   }
   return (
-    // <>
-    //   <h1 className='text-center mt-8'>Register</h1>
-    // <div className='flex justify-center ml-[8rem]  mt-9 border'>
-
-    //   <form onSubmit={loginUserFromFirebase}>
-    //     <input type="text" placeholder='enter your full name' ref={fullName} /> <br /> <br />
-    //     <input type="email" placeholder='enter your email' ref={email} /><br /> <br />
-    //     <input type="password" placeholder='enter your password' ref={password} /><br /> <br />
-    //     <input type="file" placeholder='enter your profile picture' ref={profileImage} /><br /> <br />
-    //     <button type='submit'>register</button>
-    //   </form>
-      
-    // </div>
-    // </>
     <>
   <h1 className="text-center mt-8 text-4xl font-bold">Register</h1>
   <div className="flex justify-center items-center mt-9">

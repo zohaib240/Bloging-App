@@ -21,29 +21,14 @@ const Login = () => {
         password: data.password
       })
       console.log(userLogin)
-      navigate('/dashboard')
+      navigate('/')
 
     } catch (error) {
       console.error(error)
     }
   }
   return (
-    // <>
-    // <div>
-    //   <h1>Login</h1>
-    //   <form onSubmit={handleSubmit(loginUserFromFirebase)}>
-    //     <input type="email" placeholder='enter your email' {...register("email", { required: true })} /><br />
-    //     {errors.email && <span className='text-danger'>This field is required</span>}
-    //      <br />
-    //     <input type="password" placeholder='enter your password' {...register("password", { required: true })} /><br />
-    //     {errors.password && <span className='text-danger'>This field is required</span>}
-    //      <br />
-    //     <button type='submit'>login</button>
-    //   </form>
-    // </div>
-    // </>
-
-    <>
+   <>
   <div className="flex justify-center items-center mt-9">
     <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
       <h1 className="text-center text-4xl font-bold mb-6">Login</h1>

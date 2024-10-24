@@ -9,6 +9,7 @@ import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Dashboard from './pages/Dashboard.jsx';
+import Profile from './pages/Profile.jsx';
 
   
     const router = createBrowserRouter([
@@ -30,8 +31,14 @@ import Dashboard from './pages/Dashboard.jsx';
             },
           {
               path: 'dashboard',
-              element: <Dashboard />
+              element: <Dashboard /> 
+            },
+
+            {
+              path: 'profile',
+              element:<Profile />
             }
+      
             
     ]
      }
