@@ -1,9 +1,13 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { signUpUser, uploadImage } from '../Config/firebase/firebaseconfigmethodes'
 import { Link, useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
+import { CircularProgress, fabClasses } from '@mui/material'
 
 
-  const Register = () => {
+
+const Register = () => {
+const [loading, setloading] = useState(false)
   const fullName = useRef()
   const email = useRef()
   const password = useRef()
@@ -12,8 +16,8 @@ import { Link, useNavigate } from 'react-router-dom'
   const navigate = useNavigate()
 
   const loginUserFromFirebase = async (event) => {
+    setloading(true)
     event.preventDefault()
-    
     console.log(email.current.value)
     console.log(password.current.value)
     console.log(fullName.current.value)
@@ -28,12 +32,27 @@ import { Link, useNavigate } from 'react-router-dom'
         fullName: fullName.current.value,
         profileImage: userProfileImageUrl
       })
+       Swal.fire({
+        title: 'Success!',
+        text: 'Your are Register Successfully',
+        icon: 'success',
+        confirmButtonColor: '#234e94',
+        confirmButtonText: 'Login'
+      })
       console.log(userData);
       navigate ('/login')
-  
+      setloading(false)
+      
     } catch (error) {
       console.error(error);
-
+      Swal.fire({
+        title: error,
+        text: 'Use Another Email',
+        icon: 'error',
+        confirmButtonText: 'Try Again',
+        confirmButtonColor: '#de2323',
+      })
+      setloading(false)
     }
 
   }
@@ -78,7 +97,7 @@ import { Link, useNavigate } from 'react-router-dom'
       </div>
       <div className="flex justify-center">
         <button type="submit" className="btn  bg-blue-700 text-white w-25">
-          Register
+        {loading ? <CircularProgress color='white' className='mt-1' size="20px" /> : "Register"}
         </button>
       </div>
       <div className='mt-2'>

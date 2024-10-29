@@ -1,10 +1,16 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useForm } from "react-hook-form"
 import { loginUser } from '../Config/firebase/firebaseconfigmethodes'
+import Swal from 'sweetalert2'
+import { CircularProgress } from '@mui/material'
+
+
 
 import { Link, useNavigate } from 'react-router-dom'
 
+
 const Login = () => {
+  const [loading, setloading] = useState(false)
   const {
     register,
     handleSubmit,
@@ -14,17 +20,34 @@ const Login = () => {
   const navigate = useNavigate()
 
   const loginUserFromFirebase = async (data) => {
+    setloading(true)  // Loading ko true set karna hai jab login process shuru ho.
     console.log(data)
     try {
       const userLogin = await loginUser({
         email: data.email,
         password: data.password
       })
+      Swal.fire({
+        title: 'Success!',
+        text: 'Your are Login Successfully',
+        icon: 'success',
+        confirmButtonText: 'Login',
+        confirmButtonColor: '#234e94'
+    })
       console.log(userLogin)
       navigate('/')
+      setloading(false)
 
     } catch (error) {
       console.error(error)
+      Swal.fire({
+        title: error,
+        text: 'Please check email & password!',
+        icon: 'error',
+        confirmButtonColor: '#de2323',
+        confirmButtonText: 'Try Again',
+    })
+    setloading(false)
     }
   }
   return (
@@ -57,7 +80,7 @@ const Login = () => {
         </div>
         <div className="flex justify-center">
           <button type="submit" className="btn  bg-blue-700 text-white w-25">
-            Login
+          {loading ? <CircularProgress color='white' className='mt-1' size="20px" /> : "Login"}
           </button>
         </div>
         <div className='mt-2'>
