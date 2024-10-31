@@ -174,7 +174,7 @@ const Navbar = () => {
                       <li className='text-center'><Link to='Dashboard'>Dashboard</Link></li>
                       <li className='text-center'><button onClick={userLogout}>Logout</button></li>
                     </>
-                  ) : currentPage.pathname === '/Profile.jsx' ? (
+                  ) : currentPage.pathname === '/Profile' ? (
                     <>
                       <li className='text-center'><Link to='/'>Home</Link></li>
                       <li className='text-center'><Link to='Dashboard'>Dashboard</Link></li>

@@ -60,8 +60,6 @@ const sendDatafirestore= async (data) => {
       confirmButtonText: 'Post'
     })
     setBlogData((prevBlogs) => [...prevBlogs, newblog]); // Update state
-
-    // setBlogData([...blogData])
     console.log(response);
 
   } catch (error) {

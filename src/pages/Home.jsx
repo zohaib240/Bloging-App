@@ -47,18 +47,21 @@ const Home = () => {
         <div className='bg-white h-[100vh] ml-6 mr-11'>
           {blogData.length > 0 ? (
             blogData.map((item, index) => (
-              <div key={index} className='flex ml-5 mt-5 items-center'>
+              <div key={index} className='flex ml-5 mt-5 '>
                 {/* Display blog image */}
-                <div className='w-[80px] h-[80px] mt-5 rounded-full overflow-hidden'>
-              <img src={item.pfp} alt="Blog" className="w-full h-full object-cover" />
-</div>
 
                 {/* Display blog title and description */}
-                <div className='ml-3 mt-5'>
-                  <h1 className='font-bold'>{item.title}</h1>
-                  <p className="text-black text-sm">Time: {formatDate(item.createdAt)} </p>
+                <div className='ml-3  mt-7'>
+                  <div className='flex items-center '>
+                <div className='w-[80px] h-[80px] mt-5 rounded-full overflow-hidden  flex-shrink-0'>
+              <img src={item.pfp} alt="Blog" className="w-full h-full object-cover" />
+              
+              </div>
+                <div className='m-3'><h1 className='font-bold'>{item.title}</h1>
+                 <p className="text-black text-sm"> {item.fullName} <span>Time: {formatDate(item.createdAt)}</span> </p></div>  
+                  </div>
                   <div>
-                    <h3 className='text-neutral-content'>{item.description}</h3>
+                    <h3 className='text-gray-600'>{item.description}</h3>
                   </div>
                 </div>
               </div>
