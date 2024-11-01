@@ -18,21 +18,39 @@ const Dashboard = () => {
     reset
   } = useForm()
 
-  const [blogData, setBlogData] = useState([]);
+  const [users, setusers] = useState([]);
+  const [blogs, setblogs] = useState([])
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
-      const blogs = []; // Temporary array
+      // const blogs = []; // Temporary array
       if (user) {
         const q = query(collection(db, "users"), where("id", "==", user.uid));
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
+         users.push(doc.data())
+        });
+        setusers(users)
+        console.log(users)
+     
+        const b = query(collection(db, "blogs"), where("uid", "==", user.uid));
+        const datablog = await getDocs(b);
+        datablog.forEach((doc) => {
          blogs.push(doc.data())
         });
-        setBlogData(blogs)
+        setblogs([...blogs])
         console.log(blogs)
+     
+     
       }
+
+
+      
     })
+
+
   }, [])
+  console.log(blogs)
+
 
 const sendDatafirestore= async (data) => {
   console.log(data)
@@ -41,14 +59,14 @@ const sendDatafirestore= async (data) => {
       title: data.title,
       description: data.description,
       uid: auth.currentUser.uid,
-      pfp: blogData[0].profileImage,
+      pfp: users[0].profileImage,
       createdAt: serverTimestamp()  
     }, 'blogs')
     const newblog ={
       title: data.title,
       description: data.description,
       uid: auth.currentUser.uid,
-      pfp: blogData[0].profileImage,
+      pfp: users[0].profileImage,
       createdAt: new Date()  
     }
 
@@ -59,7 +77,7 @@ const sendDatafirestore= async (data) => {
       confirmButtonColor: '#234e94',
       confirmButtonText: 'Post'
     })
-    setBlogData((prevBlogs) => [...prevBlogs, newblog]); // Update state
+    setblogs((prevBlogs) => [...prevBlogs, newblog]); // Update state
     console.log(response);
 
   } catch (error) {
@@ -115,18 +133,20 @@ const sendDatafirestore= async (data) => {
   </h1>
 
   <div className="flex flex-wrap  mt-8 w-[85%]"> 
-    {blogData.length > 0 ? (
-      blogData.map((item, index) => {
+    {blogs.length > 0 ? (
+      blogs.map((item, index) => {
+        console.log(blogs);
+        
         return (
           <div
             key={index}
             className="bg-white hover:bg-blue-200 transition-all shadow-lg rounded-lg mt-3 p-6 border border-blue-300 w-full sm:w-[85%]"  // Responsive width
           >
             <h2 className="text-xl font-semibold break-words text-blue-900 mb-3">  
-              Title: {item.title  || "No Title"}
+              Title: {item.title  }
             </h2>
             <h3 className=" text-gray-700 break-words">  
-              <span className='text-xl'>Description:</span> {item.description  || "No description"}
+              <span className='text-xl'>Description:</span> {item.description  }
             </h3>
           </div>
         );

@@ -22,8 +22,7 @@ const Profile = () => {
         }
     } else {
         console.log('user logout ho giya ha');
-    }
-      
+    } 
     })
   }, [])
   return (

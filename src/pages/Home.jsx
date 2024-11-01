@@ -2,7 +2,6 @@ import { onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useState } from 'react'
 import { auth, db, getAllData, getData } from '../Config/firebase/firebaseconfigmethodes';
 import { collection, doc, getDocs, orderBy, query, where } from "firebase/firestore";
-import { data } from 'autoprefixer';
 
 
 
@@ -12,18 +11,20 @@ const Home = () => {
 
   useEffect(() => {
     const alldata = async () => {
-      const blogs = [];  // Temporary array to hold data
-      const querySnapshot = await getDocs(collection(db, "blogs"), orderBy("createdAt", "desc"));
+      // Query collection with orderBy
+      const blogsQuery = query(collection(db, "blogs"), orderBy("createdAt", "asc"));
+      const querySnapshot = await getDocs(blogsQuery);
+  
       querySnapshot.forEach((doc) => {
-        blogs.push(doc.data())
+        blogData.push(doc.data());
       });
-      console.log(blogs);
-      console.log(querySnapshot.docs);
-      setBlogData(blogs)
-    }
-    alldata()
-
-  }, [])
+      
+      console.log(blogData);
+      setBlogData([...blogData]);
+    };
+    alldata();
+  }, []);
+  
   const formatDate = (timestamp) => {
     if (timestamp?.seconds) {
       return new Date(timestamp.seconds * 1000).toLocaleDateString("en-US", {
@@ -47,7 +48,7 @@ const Home = () => {
         <div className='bg-white h-[100vh] ml-6 mr-11'>
           {blogData.length > 0 ? (
             blogData.map((item, index) => (
-              <div key={index} className='flex ml-5 mt-5 '>
+              <div key={index} className='flex ml-5 mt-2 '>
                 {/* Display blog image */}
 
                 {/* Display blog title and description */}

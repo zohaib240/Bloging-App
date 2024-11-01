@@ -11,7 +11,7 @@ import Register from './pages/Register.jsx'
 import Dashboard from './pages/Dashboard.jsx';
 import Profile from './pages/Profile.jsx';
 
-  
+
     const router = createBrowserRouter([
         {
           path: '',
