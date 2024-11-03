@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useForm  } from 'react-hook-form'
-import { auth , db, getData, sendData  } from '../Config/firebase/firebaseconfigmethodes'
-import { Link, useLocation } from 'react-router-dom'
+import { auth , db, sendData  } from '../Config/firebase/firebaseconfigmethodes'
+import { Link } from 'react-router-dom'
 import { onAuthStateChanged } from 'firebase/auth'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { serverTimestamp } from "firebase/firestore";
@@ -22,7 +22,6 @@ const Dashboard = () => {
   const [blogs, setblogs] = useState([])
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
-      // const blogs = []; // Temporary array
       if (user) {
         const q = query(collection(db, "users"), where("id", "==", user.uid));
         const querySnapshot = await getDocs(q);
@@ -31,20 +30,17 @@ const Dashboard = () => {
         });
         setusers(users)
         console.log(users)
+
+    //  get data from firebase
      
-        const b = query(collection(db, "blogs"), where("uid", "==", user.uid));
+       const b = query(collection(db, "blogs"), where("uid", "==", user.uid));
         const datablog = await getDocs(b);
         datablog.forEach((doc) => {
          blogs.push(doc.data())
         });
         setblogs([...blogs])
-        console.log(blogs)
-     
-     
-      }
-
-
-      
+        console.log(blogs) 
+      }   
     })
 
 
@@ -99,7 +95,7 @@ const sendDatafirestore= async (data) => {
 
     </div>
 
-    <div className="bg-white mr-[30%] ml-5 rounded p-3 mt-7">
+    <div className="bg-white mr-[10%] ml-5 rounded p-3 mt-7">
       <form onSubmit={handleSubmit(sendDatafirestore)} >
         <div className="m-4">
           <textarea
@@ -140,7 +136,7 @@ const sendDatafirestore= async (data) => {
         return (
           <div
             key={index}
-            className="bg-white hover:bg-blue-200 transition-all shadow-lg rounded-lg mt-3 p-6 border border-blue-300 w-full sm:w-[85%]"  // Responsive width
+            className="bg-white hover:bg-blue-200 transition-all shadow-lg rounded-lg mt-3 p-6 border border-blue-300 w-full sm:w-[90%]"  // Responsive width
           >
             <h2 className="text-xl font-semibold break-words text-blue-900 mb-3">  
               Title: {item.title  }
@@ -156,13 +152,8 @@ const sendDatafirestore= async (data) => {
     )}
   </div>
 </div>
-
-
-
-</div>
-   
+</div>  
 </>
-
   )
 }
 
